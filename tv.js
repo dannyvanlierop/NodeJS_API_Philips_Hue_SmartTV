@@ -22,10 +22,10 @@
 *          - tv.pushBufferobjInputKeyVolumeDown();                                                 *
 *          - tv.pushBufferobj('/5/input/key', { "key": "VolumeDown" });                            *
 *                                                                                                  *
-*   JSON:                                                                                          *        
+*   JSON:                                                                                          *
 *          - Collect:                                                                              *
 *              tv.returnJSONObjAll());                                                             *
-*          - Write to file:                                                                        *   
+*          - Write to file:                                                                        *
 *              tv.returnJSONObjAllToDb();                                                          *
 *   	     - Read from file:                                                                       *
 *              console.log(fs.readFileSync( pathprivate + "./db.json", 'UTF8'));                   *
@@ -229,9 +229,9 @@ exports.returnSystemTimeStamp = function (){                      this.returnJSO
 
 /****************************\
 | PreDefined GETALL Function |###############################################################################################################################################################################
-|                                                                                                                                                                                                           
-| Returns an JSON object with all available values included                                                                                                                                                 
-|                                                                                                                                                                                                           
+|
+| Returns an JSON object with all available values included
+|
 \***********************************************************************************************************************************************************************************************************/
 exports.returnJSONObjAll = function(){
 
@@ -271,9 +271,9 @@ exports.returnJSONObjAll = function(){
 
 /****************************\
 | PreDefined GETALL Function |###############################################################################################################################################################################
-|                                                                                                                                                                                                           
-| Returns an JSON db file with all available values included                                                                                                                                                
-|                                                                                                                                                                                                           
+|
+| Returns an JSON db file with all available values included
+|
 \***********************************************************************************************************************************************************************************************************/
 exports.returnJSONObjAllToDb = function(){
   fs.writeFileSync( pathprivate + "./db-tv.json", JSON.stringify(this.returnJSONObjAll()) );
