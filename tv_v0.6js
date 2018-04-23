@@ -35,8 +35,28 @@
 *   	                                                                                             *
 *                                                                                                  *
 ***************************************************************************************************/
+//var request = require("request");
+var fs = require("fs");
 var http = require("http");
+//var parallel = 10;
+//var agent = new http.Agent({maxSockets: parallel});
 
+var tv = require("./tv.js");
+
+var oDb = {};
+var result = [];
+
+const proto = 'http://';
+const host1 = 'httpbin.org';
+const port1 = 80
+const path1 = '/ip'
+
+const host2 = '192.168.0.97';
+const port2 = 1925;
+const path2 = '/5/audio/volume';
+
+result[0]='';
+counter = 0;
 /******************\
 | Predefined Paths |###############################################################################################################################################################################
 |
@@ -71,8 +91,8 @@ sArrayPaths[23]='/5/system/softwareversion_encrypted';            // GET -      
 sArrayPaths[24]='/5/system/serialnumber_encrypted';               // GET -      // {"country":"нєяєωιℓℓвєѕσмєєη¢яуρтє∂кєу"}
 sArrayPaths[25]='/5/system/timestamp';                            // GET -      // {"timestamp": "49348"}
 
-
-
+var sArrayValues = [''];
+sArrayValues[0]="test";
 /***************\
 | POST Function |###############################################################################################################################################################################
 |
@@ -93,10 +113,8 @@ exports.pushBufferobj = function(path, jObj, callback){
             console.log(err);
         }
     });
-    return Result; 
+    //return result; 
 }
-
-
 
 /***************************\
 | PreDefined POST Functions |####################################################################################################################################################################
@@ -104,60 +122,60 @@ exports.pushBufferobj = function(path, jObj, callback){
 | Some predefined functions, without callback
 |
 \***********************************************************************************************************************************************************************************************/
-exports.pushBufferobjAmbilightCached = function (){               this.pushBufferobj(sArrayPaths[2] ,{"layer1":{"bottom":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0}},"right":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0},"2":{"b":0,"g":0,"r":0},"3":{"b":0,"g":0,"r":0}},"left":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0},"2":{"b":0,"g":0,"r":0},"3":{"b":0,"g":0,"r":0}},"top":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0},"2":{"b":0,"g":0,"r":0},"3":{"b":0,"g":0,"r":0},"4":{"b":0,"g":0,"r":0},"5":{"b":0,"g":0,"r":0},"6":{"b":0,"g":0,"r":0},"7":{"b":0,"g":0,"r":0}}}}, function(callback){ console.log(callback) }); }
-exports.pushBufferobjAmbiLightLounge = function (){               this.pushBufferobj(sArrayPaths[3] ,{"speed":0,"colordelta":{"brightness":0,"saturation":0,"hue":0},"color":{"brightness":0,"saturation":0,"hue":0},"mode":"Default"}, function(callback){ console.log(callback) }); }
-exports.pushBufferobjAmbiLightMode = function (){                 this.pushBufferobj(sArrayPaths[5] ,{"current":"internal"}, function(callback){ console.log(callback) }); }
-exports.pushBufferobjAudioVolume = function (){                   this.pushBufferobj(sArrayPaths[9] ,{"min":0,"current":20,"muted":true,"max":60}, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputPointer = function (){                  this.pushBufferobj(sArrayPaths[11],{ "?????": "?????" }, function(callback){ console.log(callback) }); }   //????
-exports.pushBufferobjInputKeyStandby = function (){               this.pushBufferobj(sArrayPaths[12],{ "key": "Standby" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyBack = function (){                  this.pushBufferobj(sArrayPaths[12],{ "key": "Back" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyFind = function (){                  this.pushBufferobj(sArrayPaths[12],{ "key": "Find" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyRedColour = function (){             this.pushBufferobj(sArrayPaths[12],{ "key": "RedColour" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyGreenColour = function (){           this.pushBufferobj(sArrayPaths[12],{ "key": "GreenColour" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyYellowColour = function (){          this.pushBufferobj(sArrayPaths[12],{ "key": "YellowColour" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyBlueColour = function (){            this.pushBufferobj(sArrayPaths[12],{ "key": "BlueColour" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyHome = function (){                  this.pushBufferobj(sArrayPaths[12],{ "key": "Home" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyVolumeUp = function (){              this.pushBufferobj(sArrayPaths[12],{ "key": "VolumeUp" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyVolumeDown = function (){            this.pushBufferobj(sArrayPaths[12],{ "key": "VolumeDown" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyMute = function (){                  this.pushBufferobj(sArrayPaths[12],{ "key": "Mute"  }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyOptions = function (){               this.pushBufferobj(sArrayPaths[12],{ "key": "Options" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDot = function (){                   this.pushBufferobj(sArrayPaths[12],{ "key": "Dot"    }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit0 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit0" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit1 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit1" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit2 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit2" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit3 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit3" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit4 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit4" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit5 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit5" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit6 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit6" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit7 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit7" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit8 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit8" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyDigit9 = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Digit9" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyInfo = function (){                  this.pushBufferobj(sArrayPaths[12],{ "key": "Info" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyCursorUp = function (){              this.pushBufferobj(sArrayPaths[12],{ "key": "CursorUp" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyCursorDown = function (){            this.pushBufferobj(sArrayPaths[12],{ "key": "CursorDown" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyCursorLeft = function (){            this.pushBufferobj(sArrayPaths[12],{ "key": "CursorLeft" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyCursorRight = function (){           this.pushBufferobj(sArrayPaths[12],{ "key": "CursorRight" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyConfirm = function (){               this.pushBufferobj(sArrayPaths[12],{ "key": "Confirm" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyNext = function (){                  this.pushBufferobj(sArrayPaths[12],{ "key": "Next" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyPrevious = function (){              this.pushBufferobj(sArrayPaths[12],{ "key": "Previous" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyAdjust = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Adjust" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyWatchTV = function (){               this.pushBufferobj(sArrayPaths[12],{ "key": "WatchTV" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyViewmode = function (){              this.pushBufferobj(sArrayPaths[12],{ "key": "Viewmode" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyTeletext = function (){              this.pushBufferobj(sArrayPaths[12],{ "key": "Teletext" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeySubtitle = function (){              this.pushBufferobj(sArrayPaths[12],{ "key": "Subtitle" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyChannelStepUp = function (){         this.pushBufferobj(sArrayPaths[12],{ "key": "ChannelStepUp" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyChannelStepDown = function (){       this.pushBufferobj(sArrayPaths[12],{ "key": "ChannelStepDown" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeySource = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Source" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyAmbilightOnOff = function (){        this.pushBufferobj(sArrayPaths[12],{ "key": "AmbilightOnOff" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyPlayPause = function (){             this.pushBufferobj(sArrayPaths[12],{ "key": "PlayPause" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyPause = function (){                 this.pushBufferobj(sArrayPaths[12],{ "key": "Pause" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyFastForward = function (){           this.pushBufferobj(sArrayPaths[12],{ "key": "FastForward" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyStop = function (){                  this.pushBufferobj(sArrayPaths[12],{ "key": "Stop" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyRewind = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Rewind" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyRecord = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Record" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjInputKeyOnline = function (){                this.pushBufferobj(sArrayPaths[12],{ "key": "Online" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjPowerstateOn = function (){                  this.pushBufferobj(sArrayPaths[15],{ "powerstate":"On" }, function(callback){ console.log(callback) }); }
-exports.pushBufferobjPowerstateStandby = function (){             this.pushBufferobj(sArrayPaths[15],{ "powerstate":"Standby" }, function(callback){ console.log(callback) }); }
+exports.pushBufferobjAmbilightCached = function (){               tv.pushBufferobj(sArrayPaths[2] ,{"layer1":{"bottom":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0}},"right":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0},"2":{"b":0,"g":0,"r":0},"3":{"b":0,"g":0,"r":0}},"left":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0},"2":{"b":0,"g":0,"r":0},"3":{"b":0,"g":0,"r":0}},"top":{"0":{"b":0,"g":0,"r":0},"1":{"b":0,"g":0,"r":0},"2":{"b":0,"g":0,"r":0},"3":{"b":0,"g":0,"r":0},"4":{"b":0,"g":0,"r":0},"5":{"b":0,"g":0,"r":0},"6":{"b":0,"g":0,"r":0},"7":{"b":0,"g":0,"r":0}}}}); }
+exports.pushBufferobjAmbiLightLounge = function (){               tv.pushBufferobj(sArrayPaths[3] ,{"speed":0,"colordelta":{"brightness":0,"saturation":0,"hue":0},"color":{"brightness":0,"saturation":0,"hue":0},"mode":"Default"}); }
+exports.pushBufferobjAmbiLightMode = function (){                 tv.pushBufferobj(sArrayPaths[5] ,{"current":"internal"}); }
+exports.pushBufferobjAudioVolume = function (){                   tv.pushBufferobj(sArrayPaths[9] ,{"min":0,"current":20,"muted":true,"max":60}); }
+exports.pushBufferobjInputPointer = function (){                  tv.pushBufferobj(sArrayPaths[11],{ "?????": "?????" }); }   //????
+exports.pushBufferobjInputKeyStandby = function (){               tv.pushBufferobj(sArrayPaths[12],{ "key": "Standby" }); }
+exports.pushBufferobjInputKeyBack = function (){                  tv.pushBufferobj(sArrayPaths[12],{ "key": "Back" }); }
+exports.pushBufferobjInputKeyFind = function (){                  tv.pushBufferobj(sArrayPaths[12],{ "key": "Find" }); }
+exports.pushBufferobjInputKeyRedColour = function (){             tv.pushBufferobj(sArrayPaths[12],{ "key": "RedColour" }); }
+exports.pushBufferobjInputKeyGreenColour = function (){           tv.pushBufferobj(sArrayPaths[12],{ "key": "GreenColour" }); }
+exports.pushBufferobjInputKeyYellowColour = function (){          tv.pushBufferobj(sArrayPaths[12],{ "key": "YellowColour" }); }
+exports.pushBufferobjInputKeyBlueColour = function (){            tv.pushBufferobj(sArrayPaths[12],{ "key": "BlueColour" }); }
+exports.pushBufferobjInputKeyHome = function (){                  tv.pushBufferobj(sArrayPaths[12],{ "key": "Home" }); }
+exports.pushBufferobjInputKeyVolumeUp = function (){              tv.pushBufferobj(sArrayPaths[12],{ "key": "VolumeUp" }); }
+exports.pushBufferobjInputKeyVolumeDown = function (){            tv.pushBufferobj(sArrayPaths[12],{ "key": "VolumeDown" }); }
+exports.pushBufferobjInputKeyMute = function (){                  tv.pushBufferobj(sArrayPaths[12],{ "key": "Mute"  }); }
+exports.pushBufferobjInputKeyOptions = function (){               tv.pushBufferobj(sArrayPaths[12],{ "key": "Options" }); }
+exports.pushBufferobjInputKeyDot = function (){                   tv.pushBufferobj(sArrayPaths[12],{ "key": "Dot"    }); }
+exports.pushBufferobjInputKeyDigit0 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit0" }); }
+exports.pushBufferobjInputKeyDigit1 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit1" }); }
+exports.pushBufferobjInputKeyDigit2 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit2" }); }
+exports.pushBufferobjInputKeyDigit3 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit3" }); }
+exports.pushBufferobjInputKeyDigit4 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit4" }); }
+exports.pushBufferobjInputKeyDigit5 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit5" }); }
+exports.pushBufferobjInputKeyDigit6 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit6" }); }
+exports.pushBufferobjInputKeyDigit7 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit7" }); }
+exports.pushBufferobjInputKeyDigit8 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit8" }); }
+exports.pushBufferobjInputKeyDigit9 = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Digit9" }); }
+exports.pushBufferobjInputKeyInfo = function (){                  tv.pushBufferobj(sArrayPaths[12],{ "key": "Info" }); }
+exports.pushBufferobjInputKeyCursorUp = function (){              tv.pushBufferobj(sArrayPaths[12],{ "key": "CursorUp" }); }
+exports.pushBufferobjInputKeyCursorDown = function (){            tv.pushBufferobj(sArrayPaths[12],{ "key": "CursorDown" }); }
+exports.pushBufferobjInputKeyCursorLeft = function (){            tv.pushBufferobj(sArrayPaths[12],{ "key": "CursorLeft" }); }
+exports.pushBufferobjInputKeyCursorRight = function (){           tv.pushBufferobj(sArrayPaths[12],{ "key": "CursorRight" }); }
+exports.pushBufferobjInputKeyConfirm = function (){               tv.pushBufferobj(sArrayPaths[12],{ "key": "Confirm" }); }
+exports.pushBufferobjInputKeyNext = function (){                  tv.pushBufferobj(sArrayPaths[12],{ "key": "Next" }); }
+exports.pushBufferobjInputKeyPrevious = function (){              tv.pushBufferobj(sArrayPaths[12],{ "key": "Previous" }); }
+exports.pushBufferobjInputKeyAdjust = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Adjust" }); }
+exports.pushBufferobjInputKeyWatchTV = function (){               tv.pushBufferobj(sArrayPaths[12],{ "key": "WatchTV" }); }
+exports.pushBufferobjInputKeyViewmode = function (){              tv.pushBufferobj(sArrayPaths[12],{ "key": "Viewmode" }); }
+exports.pushBufferobjInputKeyTeletext = function (){              tv.pushBufferobj(sArrayPaths[12],{ "key": "Teletext" }); }
+exports.pushBufferobjInputKeySubtitle = function (){              tv.pushBufferobj(sArrayPaths[12],{ "key": "Subtitle" }); }
+exports.pushBufferobjInputKeyChannelStepUp = function (){         tv.pushBufferobj(sArrayPaths[12],{ "key": "ChannelStepUp" }); }
+exports.pushBufferobjInputKeyChannelStepDown = function (){       tv.pushBufferobj(sArrayPaths[12],{ "key": "ChannelStepDown" }); }
+exports.pushBufferobjInputKeySource = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Source" }); }
+exports.pushBufferobjInputKeyAmbilightOnOff = function (){        tv.pushBufferobj(sArrayPaths[12],{ "key": "AmbilightOnOff" }); }
+exports.pushBufferobjInputKeyPlayPause = function (){             tv.pushBufferobj(sArrayPaths[12],{ "key": "PlayPause" }); }
+exports.pushBufferobjInputKeyPause = function (){                 tv.pushBufferobj(sArrayPaths[12],{ "key": "Pause" }); }
+exports.pushBufferobjInputKeyFastForward = function (){           tv.pushBufferobj(sArrayPaths[12],{ "key": "FastForward" }); }
+exports.pushBufferobjInputKeyStop = function (){                  tv.pushBufferobj(sArrayPaths[12],{ "key": "Stop" }); }
+exports.pushBufferobjInputKeyRewind = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Rewind" }); }
+exports.pushBufferobjInputKeyRecord = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Record" }); }
+exports.pushBufferobjInputKeyOnline = function (){                tv.pushBufferobj(sArrayPaths[12],{ "key": "Online" }); }
+exports.pushBufferobjPowerstateOn = function (){                  tv.pushBufferobj(sArrayPaths[15],{ "powerstate":"On" }); }
+exports.pushBufferobjPowerstateStandby = function (){             tv.pushBufferobj(sArrayPaths[15],{ "powerstate":"Standby" }); }
 
 
 
@@ -167,13 +185,11 @@ exports.pushBufferobjPowerstateStandby = function (){             this.pushBuffe
 | Added own get function to make this module independent, this function will return an object.
 |
 \***********************************************************************************************************************************************************************************************/
-exports.returnJSONObj = function(path, retValue){
-
-    if (!retValue) RetValue = 0;
+exports.returnJSONObj = function(path){
 
     var getOptions = {
-      hostname: '192.168.0.97',
-      port: 1925,
+      hostname: host2,
+      port: port2,
       path: path,
       method: 'GET',
       headers: {
@@ -182,17 +198,38 @@ exports.returnJSONObj = function(path, retValue){
       }
     };
 
-    var req = http.request( getOptions, function(res) {
-      res.on('data', (chunk) => {
-        Result[retValue] = JSON.parse(chunk);
-        //Result[retValue] = chunk;
-      });//res.on('end', () => { /**/ });
-    });
-    req.end();
+    var postion = 0;
+    for (var i = 0; i < sArrayPaths.length; i++) {
+        if (sArrayPaths[i] === getOptions.path){
+            postion = i;
+        }
+    }
 
-    return Result[retValue];
-}
+ 
+    var req = http.request(getOptions);                                                           // MAKE THE REQUEST
+    var data = '';
+    req.on('response', function(res){                           // when the response comes back
+        res.setEncoding('utf-8');
+        res.on('data', function(chunk){ data += JSON.stringify(chunk) });            // concat chunks
+        res.on('end', function(){ 
+          exports = sArrayValues[i] = data;
+          fs.writeFileSync( "./tempdb" + postion, sArrayValues[i]);
+        });
+    })
+    req.end();                                                  // end the request
 
+    return JSON.parse((fs.readFileSync( "./tempdb" + postion, 'UTF8')));
+    
+ }
+
+setInterval(function(){ 
+  console.log(counter++)
+console.log(tv.returnJSONObj(sArrayPaths[1]));
+}, 4)
+
+//console.log(tv.returnJSONObj(sArrayPaths[1]));
+//fs.writeFileSync( "./db-tv.json", JSON.stringify(tv.returnJSONObjAll()) );
+//console.log(tv.returnJSONObj(sArrayPaths[1]))
 
 
 /**************************\
@@ -201,29 +238,29 @@ exports.returnJSONObj = function(path, retValue){
 | Some predefined get functions, this function will return an object.
 |
 \***********************************************************************************************************************************************************************************************/
-exports.returnActivitiesTv = function (){                         this.returnJSONObj(sArrayPaths[1] ,1 ); return Result[1] ; };
-exports.returnAmbilightCached = function (){                      this.returnJSONObj(sArrayPaths[2] ,2 ); return Result[2] ; };
-exports.returnAmbilightLounge = function (){                      this.returnJSONObj(sArrayPaths[3] ,3 ); return Result[3] ; };
-exports.returnAmbilightMeasured = function (){                    this.returnJSONObj(sArrayPaths[4] ,4 ); return Result[4] ; };
-exports.returnAmbilightMode = function (){                        this.returnJSONObj(sArrayPaths[5] ,5 ); return Result[5] ; };
-exports.returnAmbilightProcessed = function (){                   this.returnJSONObj(sArrayPaths[6] ,6 ); return Result[6] ; };
-exports.returnAmbilightTopology = function (){                    this.returnJSONObj(sArrayPaths[7] ,7 ); return Result[7] ; };
-exports.returnApplications = function (){                         this.returnJSONObj(sArrayPaths[8] ,8 ); return Result[8] ; };
-exports.returnAudioVolume = function (){                          this.returnJSONObj(sArrayPaths[9] ,9 ); return Result[9] ; };
-exports.returnChanneldbTv = function (){                          this.returnJSONObj(sArrayPaths[10],10 ); return Result[10]; };
-exports.returnContext = function (){                              this.returnJSONObj(sArrayPaths[11],11 ); return Result[11]; };
-exports.returnNetworkDevices = function (){                       this.returnJSONObj(sArrayPaths[14],14 ); return Result[14]; };
-exports.returnPowerstate = function (){                           this.returnJSONObj(sArrayPaths[15],15 ); return Result[15]; };
-exports.returnSystem = function (){                               this.returnJSONObj(sArrayPaths[16],16 ); return Result[16]; };
-exports.returnSystemCountry = function (){                        this.returnJSONObj(sArrayPaths[17],17 ); return Result[17]; };
-exports.returnSystemDeviceIdEncrypted = function (){              this.returnJSONObj(sArrayPaths[18],18 ); return Result[18]; };
-exports.returnSystemEpgsource = function (){                      this.returnJSONObj(sArrayPaths[19],19 ); return Result[19]; };
-exports.returnSystemMenulanguage = function (){                   this.returnJSONObj(sArrayPaths[20],20 ); return Result[20]; };
-exports.returnSystemModelEncrypted = function (){                 this.returnJSONObj(sArrayPaths[21],21 ); return Result[21]; };
-exports.returnSystemName = function (){                           this.returnJSONObj(sArrayPaths[22],22 ); return Result[22]; };
-exports.returnSystemSoftwareversionEncrypted = function (){       this.returnJSONObj(sArrayPaths[23],23 ); return Result[23]; };
-exports.returnSystemSerialnumberEncrypted = function (){          this.returnJSONObj(sArrayPaths[24],24 ); return Result[24]; };
-exports.returnSystemTimeStamp = function (){                      this.returnJSONObj(sArrayPaths[25],25 ); return Result[25]; };
+exports.returnActivitiesTv = function (){                         tv.returnJSONObj(sArrayPaths[1] ,1 ); console.log(result[1]) ; };
+exports.returnAmbilightCached = function (){                      tv.returnJSONObj(sArrayPaths[2] ,2 ); return result[2] ; };
+exports.returnAmbilightLounge = function (){                      tv.returnJSONObj(sArrayPaths[3] ,3 ); return result[3] ; };
+exports.returnAmbilightMeasured = function (){                    tv.returnJSONObj(sArrayPaths[4] ,4 ); return result[4] ; };
+exports.returnAmbilightMode = function (){                        tv.returnJSONObj(sArrayPaths[5] ,5 ); return result[5] ; };
+exports.returnAmbilightProcessed = function (){                   tv.returnJSONObj(sArrayPaths[6] ,6 ); return result[6] ; };
+exports.returnAmbilightTopology = function (){                    tv.returnJSONObj(sArrayPaths[7] ,7 ); return result[7] ; };
+exports.returnApplications = function (){                         tv.returnJSONObj(sArrayPaths[8] ,8 ); return result[8] ; };
+exports.returnAudioVolume = function (){                          tv.returnJSONObj(sArrayPaths[9] ,9 ); return result[9] ; };
+exports.returnChanneldbTv = function (){                          tv.returnJSONObj(sArrayPaths[10],10 ); return result[10]; };
+exports.returnContext = function (){                              tv.returnJSONObj(sArrayPaths[11],11 ); return result[11]; };
+exports.returnNetworkDevices = function (){                       tv.returnJSONObj(sArrayPaths[14],14 ); return result[14]; };
+exports.returnPowerstate = function (){                           tv.returnJSONObj(sArrayPaths[15],15 ); return result[15]; };
+exports.returnSystem = function (){                               tv.returnJSONObj(sArrayPaths[16],16 ); return result[16]; };
+exports.returnSystemCountry = function (){                        tv.returnJSONObj(sArrayPaths[17],17 ); return result[17]; };
+exports.returnSystemDeviceIdEncrypted = function (){              tv.returnJSONObj(sArrayPaths[18],18 ); return result[18]; };
+exports.returnSystemEpgsource = function (){                      tv.returnJSONObj(sArrayPaths[19],19 ); return result[19]; };
+exports.returnSystemMenulanguage = function (){                   tv.returnJSONObj(sArrayPaths[20],20 ); return result[20]; };
+exports.returnSystemModelEncrypted = function (){                 tv.returnJSONObj(sArrayPaths[21],21 ); return result[21]; };
+exports.returnSystemName = function (){                           tv.returnJSONObj(sArrayPaths[22],22 ); return result[22]; };
+exports.returnSystemSoftwareversionEncrypted = function (){       tv.returnJSONObj(sArrayPaths[23],23 ); return result[23]; };
+exports.returnSystemSerialnumberEncrypted = function (){          tv.returnJSONObj(sArrayPaths[24],24 ); return result[24]; };
+exports.returnSystemTimeStamp = function (){                      tv.returnJSONObj(sArrayPaths[25],25 ); return result[25]; };
 
 
 
@@ -263,7 +300,7 @@ exports.returnJSONObjAll = function(){
   //oDb.system.timestamp    = tv.returnSystemTimeStamp               ();
     oDb.timestamp           = tv.returnSystemTimeStamp               ();
 
-  
+    console.log(oDb);
     return oDb;
 }
 
@@ -276,5 +313,11 @@ exports.returnJSONObjAll = function(){
 |
 \***********************************************************************************************************************************************************************************************************/
 exports.returnJSONObjAllToDb = function(){
-  fs.writeFileSync( pathprivate + "./db-tv.json", JSON.stringify(this.returnJSONObjAll()) );
+  //fs.writeFileSync( pathprivate + "./db-tv.json", JSON.stringify(tv.returnJSONObjAll()) );
+  fs.writeFileSync( "./db-tv.json", JSON.stringify(tv.returnJSONObjAll()) );
 };
+
+
+module.exports = result;
+
+
