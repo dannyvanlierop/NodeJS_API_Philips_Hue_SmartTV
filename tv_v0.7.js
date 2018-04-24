@@ -44,11 +44,11 @@ exports.returnJSONObj = function (path, logger) {
 };
 setInterval(function () {
     mainApp.returnJSONObj(null, false);
-}, 200);
+}, 5000);
 
 setInterval(function () {
     if (cache) //if cache is filled->print
         console.log(cache.time);
     else
         console.log("No Data");
-}, 1000);
+}, 2000);
