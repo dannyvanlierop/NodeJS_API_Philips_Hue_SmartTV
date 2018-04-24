@@ -493,3 +493,115 @@ exports.returnJSONObjAllToDb = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+exports.initGetJSONObj = function(delay, callback){
+
+    var someReturnValue;
+
+    var getOptions = {
+        hostname: host,
+        port: port,
+        path: path,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'text/html',
+          'Content-Length': Buffer.byteLength("")
+        }
+    };
+    
+    var position = 1;
+    for (var i = 1; i < sArrayPaths.length; i++) {
+        if (sArrayPaths[i] === getOptions.path){
+            position = i;
+        }
+    }
+ 
+    var req = http.request(getOptions);                                                           // MAKE THE REQUEST
+    var data = '';
+   
+   var myEmitter = new EventEmitter();
+
+    const id = setInterval(() => {
+
+    //async
+    req.on('response', function(res){                           // when the response comes back
+        res.setEncoding('utf-8');
+        res.on('error', function(err){});
+        res.on('data', function(chunk){ data += chunk });            // concat chunks
+        res.on('end', function(){ 
+          sArrayValues[position] = data
+
+          someReturnValue = data;
+              //callback(null,data);
+        });
+        
+    })
+    req.end(data);                                                  // end the request
+
+
+    if (someReturnValue !== undefined) {
+      // Call the callback function. Note the first parameter is an error
+      callback(null, 'Congratulations, you have finished waiting.');
+      // Stop the timer
+      clearInterval(id);
+    //} else if (someReturnValue < 0.01) {
+    //  // Call the callback function. Note we're setting an error now
+    //  callback('Could not wait any longer!', null);
+    //  // Stop the timer
+    //  clearInterval(id);
+    } else {
+      // Print to STDOUT
+      console.log('Waiting ...');
+    }
+  }, Number(delay));
+};
+
+
+
+
+
+
+}
+
+
+
+// Calling wait and passing a callback
+initGetJSONObj(1000, (err, data) => {
+  // Did the function return an error?
+  if (err) throw new Error(err);
+  // Output the data
+  console.log(data);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
