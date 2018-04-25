@@ -1,41 +1,71 @@
 
 # Philips_SmartTV_API
 
+<b>Info:</b>
 
-   Info:
+   Created for Philips Smart Tv (55PFS8209/12)
 
+</br></br>
 
-   Tested on Philips Smart Tv (55PFS8209/12)
-
-
-  Todo's:
+<b>Todo's:</b>
 
           - Full Test
           - Merge oDb.system.timestamp and oDb.system.epgsource to oDb.system
           - values for pointer
+          - return when counter is below some value
+          - add config file
+          - correct this readme :)
 
+</br></br>
 
-  Include:
+<b>Configure:</b>
 
-   	     - tv = require( path + './tv.js' );
+   	     - .....Todo........................
 
+ 
+<b>Include:</b>
 
-  Get:
+   	     - require( path + './tv.js' );
+         - tv = require( path + './tv.js' );
 
-    * returnJSONObj (path)
-    * console.log(tv.getJSON('/5/activities/tv'));
-    * console.log(tv.returnActivitiesTv().channelList);
+</br></br>
 
+<b>Odb: (ObjectDataBase)</b>
 
-  Post:
+         - OdbValue(pos,method,value)
+         - OdbValueReset(pos,value)
+         - OdbValueSet(pos,value)
+         - OdbValueGet(pos)
 
-    * pushBufferobj (path, jObj, callback)
-    * tv.pushBufferobjInputKeyVolumeDown();
-    * tv.pushBufferobj('/5/input/key', { "key": "VolumeDown" });
+</br></br>
 
+<b>Get: (Puts value to Odb, without return)</b>
 
-  Json:
+     - From Odb:
+         - GetJSONObjAsync(path,position)
+         - GetJSONObjAsync('/5/activities/tv',)  or  GetJSONObjAsync(,10)
+         - OdbValue(pos,method,value)
+         - OdbValueReset(pos,value)
+         - OdbValueSet(pos,value){ 
+         - OdbValueGet(pos)
 
+     - With Async:
+
+        - GetJSONObjAsync(path,position)
+          .then(output => {console.log(output)};
+          .catch(error => {console.log(error)};
+
+        - GetJSONObjAsync('/5/activities/tv',)  or  GetJSONObjAsync(,10)
+         .then(output => {console.log(output)};
+         .catch(error => {console.log(error)};
+
+<b>Post:</b>
+
+     - .....Todo........................
+
+<b>Json:</b>
+
+    - .....Todo........................
     - Collect:
         tv.returnJSONObjAll());
     - Write to file:
@@ -43,13 +73,11 @@
     - Read from file:
         console.log(fs.readFileSync( pathprivate + "./db.json", 'UTF8'));
 
-
-  Dependency:
+<b>Dependency:</b>
 
     - independent (only Node.js Built-in Modules)
 
-
-  Other info:
+<b>Other info:</b>
 
     - http://localip:1925/activities/tv
     - http://localip:1925/ambilight/cached
