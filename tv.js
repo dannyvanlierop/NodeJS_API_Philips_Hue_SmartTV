@@ -56,7 +56,7 @@ const cachefile = cachepath + './_tempdb';
 var WriteJSONFile = false;
 
 var iCounter = 0;
-var iTvUpdateInterval = 100;     // > 150
+var iTvUpdateInterval = 250;     // > 150
 const proto = 'http://';
 
 var timestarted = 0;
