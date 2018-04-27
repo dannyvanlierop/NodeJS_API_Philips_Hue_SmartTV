@@ -55,8 +55,8 @@ const cachedb = cachepath + './db-tv.json';
 const cachefile = cachepath + './_tempdb';
 var WriteJSONFile = false;
 
-var counter = 0;
-var interval = 100;     // > 150
+var iCounter = 0;
+var iTvUpdateInterval = 100;     // > 150
 const proto = 'http://';
 
 var timestarted = 0;
@@ -106,7 +106,7 @@ function ConfigPostJSON(path,jObj){
 var oDb = {}; oDb.activities = {}; oDb.ambilight = {}; oDb.audio = {}; oDb.channeldb = {}; oDb.input = {}; oDb.network = {}; oDb.system = {};
 //oDb.system.epgsource; //oDb.system.timestamp; //fs.writeFileSync( "./db-_thisnew.json", JSON.stringify(oDb) , 'utf-8');
 
-//Paths listening                                         //Automatic update             // cycles between updates         //Able to POST request   //Able to GET request                                                               
+//Paths listening                                         //Automatic update             // cycles to skip between updates //Able to POST request   //Able to GET request                                                               
 var sArrayPaths=[];                                       var updateAfterInit=[];        var countBeforeUpdate=[];         var canDoPost=[];        var canDoGet=[];                                
                                                                                                                                                               
     sArrayPaths[0] = void 0;                              updateAfterInit[0]  = false;   countBeforeUpdate[0]  = void 0;   canDoPost[0]  = false;   canDoGet[0]  = false;                                                           
@@ -136,7 +136,7 @@ var sArrayPaths=[];                                       var updateAfterInit=[]
     sArrayPaths[24]='/5/system/timestamp';                updateAfterInit[24] = true ;   countBeforeUpdate[24] = 1;        canDoPost[24] = false;   canDoGet[24] = true ; 
 
 
-    //Set defaults at init to the empty objects
+    //Set defaults at init to the empty objects oDb
 var oPropertyName = [''];
     oPropertyName[0]  = oDb;                                                                           
     oPropertyName[1]  = {"channelList":{"id":"alltv","version":"60"},"channel":{"name":"NPO 1 HD","preset":1,"ccid":1000147}};                                                                                     
@@ -181,7 +181,7 @@ var oPropertyName = [''];
         }
     };      //PathsGetValueByPos(1);
 
-
+//require("./tv-cmd.js");
 
 /***************************\
 | Set/Get value to/from Odb |##########################################################################################################################################################################
@@ -191,7 +191,7 @@ var oPropertyName = [''];
 |   Set: to Odb (without error check)     OdbValue( oPropertyPosition ,  null , oPropertyValue )                                          
 |
 \*****************************************************************************************************************************************************************************************************/
-function OdbValue(pos,method,value){
+exports.OdbValue = function(pos,method,value){
         
     //Check method
     if (method == null) {
@@ -214,19 +214,10 @@ function OdbValue(pos,method,value){
     if(method == null){ return oPropertyName[pos] = JSON.parse(value) };
 
 }
-function OdbValueReset(pos,value){ OdbValue(pos,null,value) };
-function OdbValueSet(pos,value){ OdbValue(pos,'set',value) };
-function OdbValueGet(pos){ OdbValue(pos,'get') };
 
 
 
-/***************\
-| POST Function |###############################################################################################################################################################################
-|
-| Added own post function to make this module independent, this function will return an object.
-|
-\***********************************************************************************************************************************************************************************************/
-//SmartTvValuePost
+
 exports.SmartTvValuePost = function(path, jObj){
 
   // Set up the request
@@ -244,13 +235,7 @@ exports.SmartTvValuePost = function(path, jObj){
 
 
 
-/**************\
-| GET Function |#######################################################################################################################################################################################
-|
-| 
-|
-\*****************************************************************************************************************************************************************************************************/
-exports.GetJSONObjAsync = async function(path, pos){
+exports.GetJSONObjAsync = async function(path, pos, callback){
 
     if ( (!pos && !path) || (pos && path) ){ 
             return console.log("Error: path: " + path + "  or  position: " + pos + "param error"); 
@@ -265,7 +250,7 @@ exports.GetJSONObjAsync = async function(path, pos){
     var cache = ''; //this is where we store data, if its there   
 
     process.stdout.write(" > " + pos);
-
+    //try { return req = await http.request(ConfigGetJSON(path)); // Make the request
     try { var req = await http.request(ConfigGetJSON(path)); // Make the request
             // Async start
             return new Promise(function (resolve, reject) { 
@@ -289,12 +274,56 @@ exports.GetJSONObjAsync = async function(path, pos){
     finally {
     if (cache){
         return cache;
-        //Returning from a finally block
-//If the finally block returns a value, this value becomes the return value of the entire try-catch-finally production, regardless of any return statements in the try and catch blocks. This includes exceptions thrown inside of the catch block:
+        //Returning from a finally block, If the finally block returns a value, this value becomes the return value of the entire try-catch-finally production, regardless of any return statements in the try and catch blocks. This includes exceptions thrown inside of the catch block:
     }
     //return;
   }
 };  //GetJSONObjAsync(sArrayPaths[9]).then(output => console.log(output))
+
+
+
+exports.GetJSONObjAsyncAll = function(){
+// Fetch new value from device when the check of updateAfterInit[X] and ( counter % countBeforeUpdate[X] ) is true,
+    process.stdout.write(" Get value");
+    for (var i = 1; i < sArrayPaths.length; i++) {
+        if (updateAfterInit[i] && iCounter != undefined && ( iCounter % countBeforeUpdate[i] ) == 0) {
+            _this.GetJSONObjAsync(PathsGetValuebyPos(i));
+        }
+
+        if(i == sArrayPaths.length - 1){
+            process.stdout.write("   Done. ")
+        }
+    }
+}
+
+
+
+exports.GetJSONObjAsyncAllToDb = function(){
+  //fs.writeFileSync( pathprivate + "./db-_this.json", JSON.stringify(_this.GetJSONObjAsyncAll()) );
+  fs.writeFileSync( "./db-_this.json", JSON.stringify(oDb) , 'utf-8');
+};
+
+
+
+setInterval(function(){ 
+
+    process.stdout.write('\n' + iCounter++ + ": ");
+
+    // Fetch new value from device when the check of updateAfterInit[X] and ( iCounter % countBeforeUpdate[X] ) is true,
+    _this.GetJSONObjAsyncAll();
+
+    //Save all values at init and after some couter when WriteJSONFile is set to true.
+    if ( ( iCounter == 0 || (iCounter % 1000) == 0 ) && WriteJSONFile){
+        _this.GetJSONObjAsyncAllToDb();     //writes all content from Odb to file
+    }
+
+}, iTvUpdateInterval);
+
+
+
+exports.OdbValueReset = function(pos,value){ OdbValue(pos,null,value) };
+exports.OdbValueSet = function(pos,value){ OdbValue(pos,'set',value) };
+exports.OdbValueGet = function(pos){ OdbValue(pos,'get') };
 
 
 
@@ -388,96 +417,3 @@ exports.SmartTvValueGetSystemModelEncrypted = function (){        return _this.o
 exports.SmartTvValueGetSystemName = function (){                  return _this.oPropertyName[22];};
 exports.SmartTvValueGetSystemSerialnumberEncrypted = function (){ return _this.oPropertyName[23];};
 exports.SmartTvValueGetSystemTimeStamp = function (){             return _this.oPropertyName[24];};
-
-
-
-/****************************\
-| PreDefined GETALL Function |#########################################################################################################################################################################
-|
-| Returns an JSON object with all available values included
-|
-\*****************************************************************************************************************************************************************************************************/
-exports.GetJSONObjAsyncAll = function(){
-// Fetch new value from device when the check of updateAfterInit[X] and ( counter % countBeforeUpdate[X] ) is true,
-    process.stdout.write(" Get value");
-    for (var i = 1; i < sArrayPaths.length; i++) {
-        if (updateAfterInit[i] && counter != undefined && ( counter % countBeforeUpdate[i] ) == 0) {
-            _this.GetJSONObjAsync(PathsGetValuebyPos(i));
-        }
-
-        if(i == sArrayPaths.length - 1){
-            process.stdout.write("   Done..." + (new Date().getTime() - timestarted) + "ms.")
-        }
-    }
-}
-
-
-
-/****************************\
-| PreDefined GETALL Function |#########################################################################################################################################################################
-|
-| Returns an JSON db file with all available values included
-\*****************************************************************************************************************************************************************************************************/
-exports.GetJSONObjAsyncAllToDb = function(){
-  //fs.writeFileSync( pathprivate + "./db-_this.json", JSON.stringify(_this.GetJSONObjAsyncAll()) );
-  fs.writeFileSync( "./db-_this.json", JSON.stringify(oDb) , 'utf-8');
-};
-
-
-
-/*****************\
-| Runs the script |####################################################################################################################################################################################
-|
-| Returns an JSON object with all available values included
-|
-\*****************************************************************************************************************************************************************************************************/
-function isEven(n) {
-   return n % 2 == 0;
-}
-
-function isOdd(n) {
-   return Math.abs(n % 2) == 1;
-}
-
-setInterval(function(){ 
-    timestarted = new Date().getTime();
-    if (isEven(counter)){time0 = timestarted; process.stdout.write('\n' + "CycleTime:" + (time0 - time1) + "ms.");}
-    if (isOdd(counter)){ time1 = timestarted; process.stdout.write('\n' + "CycleTime:" + (time1 - time0) + "ms.");}
-       process.stdout.write('\n' + counter++ + ": ");
-
-    // Fetch new value from device when the check of updateAfterInit[X] and ( counter % countBeforeUpdate[X] ) is true,
-    _this.GetJSONObjAsyncAll();
-
-    //Save all values at init and after some couter
-    if ( counter == 0 || (counter % 1000) == 0 || WriteJSONFile){
-        _this.GetJSONObjAsyncAllToDb();     //writes all content from Odb to file
-    }
-    console.log( "" + oPropertyName[6].layer1.left[0].r);
-    console.log( "" + oPropertyName[6].layer1.left[0].g);
-    console.log( oPropertyName[6].layer1.left[0].b);
-}, interval);
-
-
-
-
-
-
-
-
-
-
-    //_this.returnJSONObjAllToDb();
-//, obj.join(',') , 'utf-8');
-
-//const EventEmitter = require('events');
-//class MyEmitter extends EventEmitter {}
-//
-//const myEmitter = new MyEmitter();
-//
-////Event Do
-//myEmitter.on('event', () => {
-//  console.log('an event occurred!');
-//});
-//
-////Event Call
-//myEmitter.emit('event');
