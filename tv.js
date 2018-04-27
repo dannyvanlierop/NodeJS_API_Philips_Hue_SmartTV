@@ -417,3 +417,6 @@ exports.SmartTvValueGetSystemModelEncrypted = function (){        return _this.o
 exports.SmartTvValueGetSystemName = function (){                  return _this.oPropertyName[22];};
 exports.SmartTvValueGetSystemSerialnumberEncrypted = function (){ return _this.oPropertyName[23];};
 exports.SmartTvValueGetSystemTimeStamp = function (){             return _this.oPropertyName[24];};
+
+
+//sometest
