@@ -1,8 +1,48 @@
+# NodeJS_Philips-SmartTV-API
+Remote control Philips SmartTv
 
-# Philips_SmartTV_API
+&nbsp;<br>
+[
+    ![Open source](
+        https://img.shields.io/badge/Open%20Source-Yes-green?style=plastic
+    )
+    ](
+        https://github.com/dannyvanlierop/NodeJS_Philips-SmartTV-API
+    )
+[
+    ![License: Mit](
+        https://img.shields.io/badge/license-MIT-green.svg?style=plastic)
+    ](
+        https://en.wikipedia.org/wiki/MIT_License
+    )
+[
+    ![Contributors](
+        https://img.shields.io/github/contributors/dannyvanlierop/NodeJS_Philips-SmartTV-API?style=plastic)
+    ](
+        https://github.com/dannyvanlierop/NodeJS_Philips-SmartTV-API/graphs/contributors
+    )
+[
+    ![Forks](
+        https://img.shields.io/github/forks/dannyvanlierop/NodeJS_Philips-SmartTV-API?style=plastic)
+    ](
+        https://github.com/dannyvanlierop/NodeJS_Philips-SmartTV-API/network/members
+	)
+[
+    ![Stars](
+        https://img.shields.io/github/stars/dannyvanlierop/NodeJS_Philips-SmartTV-API?style=plastic)
+  ](
+        https://github.com/dannyvanlierop/NodeJS_Philips-SmartTV-API/stargazers
+	)
+[
+    ![Issues](
+        https://img.shields.io/github/issues/dannyvanlierop/NodeJS_Philips-SmartTV-API?style=plastic)
+  ](
+        https://github.com/dannyvanlierop/NodeJS_Philips-SmartTV-API/issues
+	)
 
-
-   Info:
+&nbsp;<br>
+## Info:
+<hr>
 
 
    Tested on Philips Smart Tv (55PFS8209/12)
@@ -76,4 +116,11 @@
     - http://localip:1925/system/nettvversion
     - http://localip:1925/system/softwareversion_encrypted
 
+&nbsp;<br>
+## License:
+<hr>
 
+For more details,
+see the [LICENSES](https://github.com/dannyvanlierop/NodeJS_Philips-SmartTV-API/blob/master/LICENSE.md) file.
+
+<br>&nbsp;
