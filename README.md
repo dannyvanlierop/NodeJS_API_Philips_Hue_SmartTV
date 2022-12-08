@@ -1,7 +1,7 @@
-~~EDIT LATER~~
+EDIT LATER :)
 # ~~NodeJS_Philips-SmartTV-API~~
 
-(readme depreciated) - *A totally new rebuild compared to the previous versions.*
+(rebuilding readme) - *A totally new rebuild compared to the previous versions.*
 
 
 Remote control Philips SmartTv
