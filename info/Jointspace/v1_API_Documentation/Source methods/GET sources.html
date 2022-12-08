@@ -1,0 +1,80 @@
+
+<!-- saved from url=(0103)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-sources-GET.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: GET sources</h2>
+<p>Returns all sources.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/sources</tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>GET</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+none
+
+</ul>
+<h3>Response</h3>
+<p>This resource returns a JSON object with key/value pairs.  See the JSON example for how these key/value pairs are returned.</p>
+<h4>Keys</h4>
+<ul>
+
+    <li><tt><i>id</i></tt> (string): The id's of the sources are used as keys in the top level object.  The value corresponding to the key is an object with details about the source.
+    </li><li><tt>name</tt> (string): The name of the source.
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+    "tv":
+    {
+        "name": "Watch TV"
+    },
+    "satellite":
+    {
+        "name": "Watch satellite"
+    },
+    "hdmi1":
+    {
+        "name": "HDMI 1"
+    },
+    "hdmi2":
+    {
+        "name": "HDMI 2"
+    },
+    "hdmi3":
+    {
+        "name": "HDMI 3"
+    },
+    "hdmiside":
+    {
+        "name": "HDMI side"
+    },
+    "ext1":
+    {
+        "name": "EXT 1"
+    },
+    "ext2":
+    {
+        "name": "EXT 2"
+    },
+    "ypbpr":
+    {
+        "name": "Y Pb Pr"
+    },
+    "vga":
+    {
+        "name": "VGA"
+    }
+}
+
+</pre>
+
+
+</body></html>

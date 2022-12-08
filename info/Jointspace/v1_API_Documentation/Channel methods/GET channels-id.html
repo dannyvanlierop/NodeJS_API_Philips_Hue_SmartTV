@@ -1,0 +1,54 @@
+
+<!-- saved from url=(0107)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-channels-id-GET.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: GET channels/<i>id</i></h2>
+<p>Returns details about the given channel.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/channels/<i>id</i></tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>GET</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+<li><i>id</i>: The id of the requested channel.
+
+</li></ul>
+<h3>Response</h3>
+<p>This resource returns a JSON object with key/value pairs.  See the JSON example for how these key/value pairs are returned.</p>
+<h4>Keys</h4>
+<ul>
+
+    <li><tt>preset</tt> (string): The preset number of the channel.
+    </li><li><tt>name</tt> (string): The name of the channel.
+	</li><li><tt>frequency</tt> (string): The frequency of the channel.
+    </li><li><tt>onid</tt> (string): The Original Network ID of a digital channel or <tt>N/A</tt>.
+    </li><li><tt>tsid</tt> (string): The Transport Stream ID of a digital channel or <tt>N/A</tt>.
+    </li><li><tt>sid</tt> (string): The Service ID of a digital channel or <tt>N/A</tt>.
+    </li><li><tt>analog</tt> (boolean): Set to <tt>true</tt> if the channel is analog, <tt>false</tt> if not.
+    </li><li><tt>digital</tt> (string): <tt>DVB</tt> for digital terrestrial or cable channels, <tt>DVB-S2</tt> for satellite channels or <tt>N/A</tt>.
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+	"preset": "4",
+	"name": "Premium Cinema HD",
+	"frequency": "3176",
+	"onid": "272",
+	"tsid": "940",
+	"sid": "4301",
+	"analog": false,
+	"digital": "DVB"
+}
+
+</pre>
+
+
+</body></html>

@@ -1,0 +1,81 @@
+
+<!-- saved from url=(0108)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-channellists-GET.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: GET channellists</h2>
+<p>Returns the id's of all channel lists.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/channellists</tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>GET</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+none
+
+</ul>
+<h3>Response</h3>
+<p>This resource returns a JSON object with key/value pairs.  See the JSON example for how these key/value pairs are returned.</p>
+<h4>Keys</h4>
+<ul>
+
+    <li><tt><i>id</i></tt> (string): The id's of the channel lists are used as keys in the top level object.  The value corresponding to the key is an object with details about the channel list.
+    </li><li><tt>name</tt> (string): The name of the channel list.
+    </li><li><tt>source</tt> (string): Either "tv" for TV channels or "satellite" for satellite channels.
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+    "fingerprint-1":
+    {
+        "name": "All TV channels",
+        "source": "tv",
+    },
+    "fingerprint-2":
+    {
+        "name": "Favourite TV channels",
+        "source": "tv",
+    },
+    "fingerprint-3":
+    {
+        "name": "Radio TV channels",
+        "source": "tv",
+    },
+    "fingerprint-4":
+    {
+        "name": "Non-radio TV channels",
+        "source": "tv",
+    },
+    "fingerprint-5":
+    {
+        "name": "All satellite channels",
+        "source": "satellite",
+    },
+    "fingerprint-6":
+    {
+        "name": "Favourite satellite channels",
+        "source": "satellite",
+    },
+    "fingerprint-7":
+    {
+        "name": "Radio satellite channels",
+        "source": "satellite",
+    },
+    "fingerprint-8":
+    {
+        "name": "Non-radio satellite channels",
+        "source": "satellite",
+    }
+}
+
+</pre>
+
+
+</body></html>

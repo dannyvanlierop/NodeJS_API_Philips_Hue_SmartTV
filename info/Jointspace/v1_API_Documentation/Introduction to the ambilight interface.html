@@ -1,0 +1,56 @@
+
+<!-- saved from url=(0094)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-ambilight.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+    <h1>JointSpace API Documentation</h1>
+    
+    <h2>Introduction to the ambilight interface</h2>
+    
+    <h3>Pixels</h3>
+    <p>The LEDs of the ambilight system are called pixels.
+    </p><p>A colour can be set for each pixel by means of an RGB value.
+    </p><p>Individual pixels are address by specifying the side (left, top, right, bottom) and pixel number and layer
+    </p><p>Per side pixels are numbered clockwise starting from 0. E.g. the pixel on the top left is pixel 0.  In a system with four pixels on the right, the bottom pixel on the right side is pixel 3.
+    </p><p>In a system with multiple layers, layer 1 contains the pixels projecting colour closest to the frame of the TV. Layer 2 projects colour more outward and so on.
+    
+    </p><h3>Topology</h3>
+    <p>The topology describes the number of pixels on each side and the number of layers.
+        
+    </p><h3>The ambilight algorithm</h3>
+    <p>The ambilight algorithm calculates the pixel colour values based on measurements from the video displayed on the screen.  The algorithm e.g. takes care of smoothing the colour transition between adjacent pixels and between successive scenes.  The behaviour of the algorithm is depending on configurable values in the TV menu.
+    
+    </p><p>The behaviour of the ambilight algorithm can be observed by reading two sets of pixels.
+    </p><ul>
+        <li>The measured pixels: The measurements that serve as input to the algorithm. These are taken directly from the video.
+        </li><li>The processed pixels: The pixels after processing by the ambilight algorithm.  These are the colours that are effectively shown.
+    </li></ul>
+    
+    
+    <h3>Pixel cache</h3>
+    
+    <p>The pixel cache contains the custom pixel colour values that are set through the JointSpace API.
+    
+    </p><p>How the pixels in the cache are used by the ambilight algorithm depends on the mode.
+    
+    
+    </p><h3>Modes</h3>
+    <p>The ambilight algorithm has three modes:
+    </p><ul>
+        <li>Internal mode (default): The pixel cache is ignored.  The ambilight colour is fully based on internal measurements and processing.
+        </li><li>User mode: The output colours are taken from the pixel cache instead of from the algorithm.  Note that one still can read the processed pixel set, which will contain the colours calculated by the algorithm.
+        </li><li>Expert mode: The input colours for the algorithm are taken from the pixel cache instead of from the measurement.  The effective output colours are the result of running the ambilight algorithm on the pixel cache.
+    </li></ul>
+    
+    
+    <h3>Functionality</h3>
+    
+    <p>The JointSpace ambilight API provides methods for following functionality:
+    </p><ul>
+        <li>Reading the measured and processed pixel colours.
+        </li><li>Setting pixel colours in the cache.
+        </li><li>Changing the mode as to activate or deactivate custom ambilight colours.
+    </li></ul>
+    
+
+
+</body></html>

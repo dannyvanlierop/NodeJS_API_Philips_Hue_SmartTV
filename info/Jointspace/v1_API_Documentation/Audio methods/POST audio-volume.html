@@ -1,0 +1,42 @@
+
+<!-- saved from url=(0109)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-audio-volume-POST.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: POST audio/volume</h2>
+<p>Changes the TV volume.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/audio/volume</tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>POST</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+none
+
+</ul>
+<h3>Upload data</h3>
+<p>This resource accepts a JSON object with key/value pairs.  It is allowed to send an object containing only the key/value pairs that need to be changed.  See the JSON example for how these key/value pairs are passed.</p>
+<h4>Keys</h4>
+<ul>
+
+        <li><tt>muted</tt> (boolean): Set to <tt>true</tt> to mute the sound or <tt>false</tt> to unmute the sound.
+        </li><li><tt>current</tt> (integer number): The new volume setting.  This should be between the <tt>min</tt> and <tt>max</tt> as returned by <a href="https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-audio-volume-GET.html">GET audio/volume</a>.
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+    "muted": false,
+    "current": 18,
+}
+
+</pre>
+
+
+</body></html>

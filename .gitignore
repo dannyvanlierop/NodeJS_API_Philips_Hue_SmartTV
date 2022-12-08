@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+.*\*
+
+#.vs/ProjectSettings.json
+#.vs/Philips_SmartTV_API/v15/.suo
+#.vs/Philips_SmartTV_API/v15/.suo

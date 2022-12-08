@@ -1,0 +1,48 @@
+
+<!-- saved from url=(0114)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-ambilight-topology-GET.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: GET ambilight/topology</h2>
+<p>Returns the number of layers and the number of pixels on each side.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/ambilight/topology</tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>GET</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+none
+
+</ul>
+<h3>Response</h3>
+<p>This resource returns a JSON object with key/value pairs.  See the JSON example for how these key/value pairs are returned.</p>
+<h4>Keys</h4>
+<ul>
+
+        <li><tt>layers</tt> (integer number): The number of layers.
+        </li><li><tt>left</tt> (integer number): The number of pixels on the left.
+        </li><li><tt>top</tt> (integer number): The number of pixels on the top.
+        </li><li><tt>right</tt> (integer number): The number of pixels on the right.
+        </li><li><tt>bottom</tt> (integer number): The number of pixels on the bottom.
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+    "layers": 2,
+    "left": 4,
+    "top": 6,
+    "right": 4,
+    "bottom": 0
+}
+
+</pre>
+
+
+</body></html>

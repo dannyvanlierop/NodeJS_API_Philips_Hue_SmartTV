@@ -1,0 +1,62 @@
+
+<!-- saved from url=(0104)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-channels-GET.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: GET channels</h2>
+<p>Returns all installed channels.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/channels</tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>GET</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+none
+
+</ul>
+<h3>Response</h3>
+<p>This resource returns a JSON object with key/value pairs.  See the JSON example for how these key/value pairs are returned.</p>
+<h4>Keys</h4>
+<ul>
+
+    <li><tt><i>id</i></tt> (string): The id's of the channels are used as keys in the top level object.  The value corresponding to the key is an object with details about the channel.
+    </li><li><tt>preset</tt> (string): The preset number of the channel.
+    </li><li><tt>name</tt> (string): The name of the channel.
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+    "fingerprint-1":
+    {
+        "preset": "1",
+        "name": "Flower",
+    },
+    "fingerprint-2":
+    {
+        "preset": "2",
+        "name": "Moving Colourbar"
+    },
+    "fingerprint-3":
+    {
+        "preset": "12.3",
+        "name": "Irdeto scrambled"
+    },
+    "fingerprint-4":
+    {
+        "preset": "4",
+        "name": "Codec 16:9 scrambled"
+    },
+    etc.
+}
+
+</pre>
+
+
+</body></html>

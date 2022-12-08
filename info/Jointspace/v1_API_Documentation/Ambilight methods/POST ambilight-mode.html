@@ -1,0 +1,45 @@
+
+<!-- saved from url=(0111)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-ambilight-mode-POST.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: POST ambilight/mode</h2>
+<p>Changes the ambilight mode.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/ambilight/mode</tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>POST</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+none
+
+</ul>
+<h3>Upload data</h3>
+<p>This resource accepts a JSON object with key/value pairs.  It is allowed to send an object containing only the key/value pairs that need to be changed.  See the JSON example for how these key/value pairs are passed.</p>
+<h4>Keys</h4>
+<ul>
+
+        <li><tt>current</tt> (string): One of following values:
+            <ul>
+                <li><tt>internal</tt>: The internal ambilight alorithm is used to calculate the ambilight colours.
+                </li><li><tt>manual</tt>: The cached ambilight colours are shown.
+                </li><li><tt>expert</tt>: The cached ambilight colours are used as input for the internal ambilight algorithm.
+            </li></ul>
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+    "current": "manual"
+}
+
+</pre>
+
+
+</body></html>

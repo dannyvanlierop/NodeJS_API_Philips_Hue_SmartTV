@@ -1,0 +1,89 @@
+
+<!-- saved from url=(0106)https://jointspace.sourceforge.net/projectdata/documentation/jasonApi/1/doc/API-Method-input-key-POST.html -->
+<html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>JointSpace API Documentation</title></head>
+<body>
+<h1>JointSpace API Documentation</h1>
+<h2>REST API Method: POST input/key</h2>
+<p>Sends a key to the TV.
+</p>
+<h3>URL</h3>
+<tt>http://<i>ip-address</i>:1925/1/input/key</tt>
+<h3>Format</h3>
+<tt>json</tt>
+<h3>HTTP Method</h3>
+<tt>POST</tt>
+<h3>Requires Authentication</h3>
+<tt>false</tt>
+<h3>Parameters</h3>
+<ul>
+
+none
+
+</ul>
+<h3>Upload data</h3>
+<p>This resource accepts a JSON object with key/value pairs.  It is allowed to send an object containing only the key/value pairs that need to be changed.  See the JSON example for how these key/value pairs are passed.</p>
+<h4>Keys</h4>
+<ul>
+
+        <li><tt>key</tt> (string): One of the following:
+        <ul>
+            <li><tt>Standby</tt>
+            </li><li><tt>Back</tt>
+            </li><li><tt>Find</tt>
+            </li><li><tt>RedColour</tt>
+            </li><li><tt>GreenColour</tt>
+            </li><li><tt>YellowColour</tt>
+            </li><li><tt>BlueColour</tt>
+            </li><li><tt>Home</tt>
+            </li><li><tt>VolumeUp</tt>
+            </li><li><tt>VolumeDown</tt>
+            </li><li><tt>Mute</tt>
+            </li><li><tt>Options</tt>
+            </li><li><tt>Dot</tt>
+            </li><li><tt>Digit0</tt>
+            </li><li><tt>Digit1</tt>
+            </li><li><tt>Digit2</tt>
+            </li><li><tt>Digit3</tt>
+            </li><li><tt>Digit4</tt>
+            </li><li><tt>Digit5</tt>
+            </li><li><tt>Digit6</tt>
+            </li><li><tt>Digit7</tt>
+            </li><li><tt>Digit8</tt>
+            </li><li><tt>Digit9</tt>
+            </li><li><tt>Info</tt>
+            </li><li><tt>CursorUp</tt>
+            </li><li><tt>CursorDown</tt>
+            </li><li><tt>CursorLeft</tt>
+            </li><li><tt>CursorRight</tt>
+            </li><li><tt>Confirm</tt>
+            </li><li><tt>Next</tt>
+            </li><li><tt>Previous</tt>
+            </li><li><tt>Adjust</tt>
+            </li><li><tt>WatchTV</tt>
+            </li><li><tt>Viewmode</tt>
+            </li><li><tt>Teletext</tt>
+            </li><li><tt>Subtitle</tt>
+            </li><li><tt>ChannelStepUp</tt>
+            </li><li><tt>ChannelStepDown</tt>
+            </li><li><tt>Source</tt>
+            </li><li><tt>AmbilightOnOff</tt>
+            </li><li><tt>PlayPause</tt>
+            </li><li><tt>Pause</tt>
+            </li><li><tt>FastForward</tt>
+            </li><li><tt>Stop</tt>
+            </li><li><tt>Rewind</tt>
+            </li><li><tt>Record</tt>
+            </li><li><tt>Online</tt>
+        </li></ul>
+
+</li></ul>
+<h4>JSON example</h4>
+<pre>
+{
+    "key": "Home"
+}
+
+</pre>
+
+
+</body></html>
